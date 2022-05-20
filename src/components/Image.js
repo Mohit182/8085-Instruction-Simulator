@@ -34,7 +34,7 @@ const lcmoftwo = (a, b) => {
 
 const Image = () => {
   const [code, setCode] = React.useState("");
-  const [resultCode, setResultCode] = React.useState([]);
+  const [resultCode, setResultCode] = React.useState({});
   const [A, setA] = React.useState("");
   const [B, setB] = React.useState("");
   const [Aout, setAout] = React.useState("");
@@ -45,11 +45,6 @@ const Image = () => {
   const [t, setT] = React.useState(-1);
 
   React.useEffect(() => {
-    console.log(resultCode);
-    if (resultCode.length > 0) {
-      console.log("resultCode.ins", resultCode[0].ins);
-    }
-
     if (t > -1) {
       for (var i = 0; i < instruction.length; i++) {
         if (instruction[i]["name"] === resultCode["ins"].toUpperString()) {
@@ -58,7 +53,7 @@ const Image = () => {
         }
       }
     }
-  }, [resultCode, t]);
+  }, [t]);
 
   const mov = (a, b) => {
     setAout(b);
@@ -224,12 +219,26 @@ const Image = () => {
                 id="outlined"
                 label="A"
                 variant="outlined"
+                value={A}
+                InputLabelProps={{
+                  style: { fontSize: 20, borderColor: "teal !important" },
+                }}
+                onChange={(e) => {
+                  setA(e.target.value);
+                }}
               />
               <TextField
                 style={{ padding: "5px", width: "50%" }}
                 id="outlined"
                 label="B"
                 variant="outlined"
+                value={B}
+                InputLabelProps={{
+                  style: { fontSize: 20, borderColor: "teal !important" },
+                }}
+                onChange={(e) => {
+                  setB(e.target.value);
+                }}
               />
             </div>
             <div
@@ -248,6 +257,10 @@ const Image = () => {
                 id="outlined"
                 label="A"
                 variant="outlined"
+                value={Aout}
+                InputLabelProps={{
+                  style: { fontSize: 20, borderColor: "teal !important" },
+                }}
               />
               <TextField
                 disabled
@@ -255,6 +268,10 @@ const Image = () => {
                 id="outlined"
                 label="B"
                 variant="outlined"
+                value={Bout}
+                InputLabelProps={{
+                  style: { fontSize: 20, borderColor: "teal !important" },
+                }}
               />
             </div>
           </div>
@@ -264,20 +281,22 @@ const Image = () => {
             id="outlined"
             label="PC"
             variant="outlined"
+            value={PC}
+            InputLabelProps={{
+              style: { fontSize: 20, borderColor: "teal !important" },
+            }}
           />
         </div>
         <TextField
           id="outlined-multiline"
+          disabled
           label="Comments"
           variant="outlined"
           multiline
           rows={10}
-          value={code}
+          value={comments}
           InputLabelProps={{
             style: { fontSize: 20, borderColor: "teal !important" },
-          }}
-          onChange={(e) => {
-            setCode(e.target.value);
           }}
         />
       </div>
@@ -300,7 +319,7 @@ const Image = () => {
           }}
           onClick={() => {
             const result = code.split("\n");
-            setResultCode([]);
+            setResultCode({});
             const resultItem = result.split(" ");
             const ins = resultItem[0];
             const x = resultItem[1];
