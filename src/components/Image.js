@@ -9,7 +9,158 @@ const decToBin = (dec) => {
   return parseInt(dec, 10).toString(2);
 };
 
-const instruction = [];
+const instruction = [
+  {
+    name: "ADD",
+    0: "PC(E), MAR(E,L)",
+    1: "PC(I), RAM(E), IR(L)",
+    2: "",
+    3: "",
+    4: "",
+    5: "",
+    6: "A(E,L), B(E), ALU(0001), RESET",
+  },
+  {
+    name: "AND",
+    0: "PC(E), MAR(E,L)",
+    1: "PC(I), RAM(E), IR(L)",
+    2: "",
+    3: "",
+    4: "",
+    5: "",
+    6: "A(E,L), B(E), ALU(0010), RESET",
+  },
+  {
+    name: "MOV",
+    0: "PC(E), MAR(E,L)",
+    1: "PC(I), RAM(E), IR(L)",
+    2: "",
+    3: "",
+    4: "",
+    5: "",
+    6: "A(L), B(E), RESET",
+  },
+  {
+    name: "MVI",
+    0: "PC(E), MAR(E,L)",
+    1: "PC(I), RAM(E), IR(L)",
+    2: "PC(E), MAR(E,L)",
+    3: "PC(I)",
+    4: "",
+    5: "",
+    6: "A(L), RAM(E), RESET",
+  },
+  {
+    name: "INR",
+    0: "PC(E), MAR(E,L)",
+    1: "PC(I), RAM(E), IR(L)",
+    2: "",
+    3: "",
+    4: "",
+    5: "",
+    6: "A(E,L), B(E), ALU(0011), RESET",
+  },
+  {
+    name: "DCR",
+    0: "PC(E), MAR(E,L)",
+    1: "PC(I), RAM(E), IR(L)",
+    2: "",
+    3: "",
+    4: "",
+    5: "",
+    6: "A(E,L), B(E), ALU(0100), RESET",
+  },
+  {
+    name: "CMP",
+    0: "PC(E), MAR(E,L)",
+    1: "PC(I), RAM(E), IR(L)",
+    2: "",
+    3: "",
+    4: "",
+    5: "",
+    6: "A(E,L), B(E), ALU(0101), RESET",
+  },
+  {
+    name: "CLR",
+    0: "PC(E), MAR(E,L)",
+    1: "PC(I), RAM(E), IR(L)",
+    2: "",
+    3: "",
+    4: "",
+    5: "",
+    6: "A(E,L), B(E), ALU(0110), RESET",
+  },
+  {
+    name: "CMA",
+    0: "PC(E), MAR(E,L)",
+    1: "PC(I), RAM(E), IR(L)",
+    2: "",
+    3: "",
+    4: "",
+    5: "",
+    6: "A(E,L), B(E), ALU(0111), RESET",
+  },
+  {
+    name: "SWP",
+    0: "PC(E), MAR(E,L)",
+    1: "PC(I), RAM(E), IR(L)",
+    2: "",
+    3: "",
+    4: "B(E), TMP(L)",
+    5: "A(E), B(L)",
+    6: "A(L), TMP(E), RESET",
+  },
+  {
+    name: "FLP",
+    0: "PC(E), MAR(E,L)",
+    1: "PC(I), RAM(E), IR(L)",
+    2: "",
+    3: "",
+    4: "",
+    5: "",
+    6: "A(E,L), B(E), ALU(1000), RESET",
+  },
+  {
+    name: "SQR",
+    0: "PC(E), MAR(E,L)",
+    1: "PC(I), RAM(E), IR(L)",
+    2: "",
+    3: "",
+    4: "",
+    5: "",
+    6: "A(E,L), B(E), ALU(1001), RESET",
+  },
+  {
+    name: "SQT",
+    0: "PC(E), MAR(E,L)",
+    1: "PC(I), RAM(E), IR(L)",
+    2: "",
+    3: "",
+    4: "",
+    5: "",
+    6: "A(E,L), B(E), ALU(1010), RESET",
+  },
+  {
+    name: "LCM",
+    0: "PC(E), MAR(E,L)",
+    1: "PC(I), RAM(E), IR(L)",
+    2: "",
+    3: "",
+    4: "",
+    5: "",
+    6: "A(E,L), B(E), ALU(1011), RESET",
+  },
+  {
+    name: "TCA",
+    0: "PC(E), MAR(E,L)",
+    1: "PC(I), RAM(E), IR(L)",
+    2: "",
+    3: "",
+    4: "",
+    5: "",
+    6: "A(E,L), B(E), ALU(1100), RESET",
+  },
+];
 const reverseBits = (n) => {
   let rev = 0;
 
@@ -43,6 +194,7 @@ const Image = () => {
   const [comments, setComments] = React.useState("");
   const [output, setOutput] = React.useState("");
   const [t, setT] = React.useState(-1);
+  const [execute, setExecute] = React.useState(false);
 
   React.useEffect(() => {
     if (t > -1) {
@@ -53,115 +205,117 @@ const Image = () => {
         }
       }
     }
-  }, [t]);
 
-  const mov = (a, b) => {
-    setAout(b);
-    setBout(B);
+    if (execute) {
+      if (resultCode["ins"] === "MOV") {
+        setAout(B);
+        setBout(B);
 
-    setPC(PC + 1);
-    setComments(
-      "Move Content of one resistor with respect to another resistor"
-    );
-  };
+        setPC(PC + 1);
+        setComments(
+          "Move Content of one resistor with respect to another resistor"
+        );
+      }
+      if (resultCode["ins"] === "MVI") {
+        setAout(resultCode["y"]);
+        // setBout(B);
+        setPC(PC + 2);
+        setComments(
+          "Move Content of one resistor with respect to another resistor"
+        );
+      }
+      if (resultCode["ins"] === "ADD") {
+        setAout(decToBin(binToDec(A) + binToDec(B)));
+        setBout(B);
 
-  const mvi = (a, b) => {
-    setAout(b);
-    setBout(B);
+        setPC(PC + 1);
+        setComments("Add content of two resistors");
+      }
+      if (resultCode["ins"] === "AND") {
+        setAout(decToBin(binToDec(A) & binToDec(B)));
+        setBout(B);
 
-    setPC(PC + 2);
-    setComments("Move immediate to given resistor");
-  };
+        setPC(PC + 1);
+      }
+      if (resultCode["ins"] === "INR") {
+        setAout(decToBin(binToDec(A) + 1));
 
-  const add = (a, b) => {
-    setAout(decToBin(binToDec(A) + binToDec(B)));
-    setBout(B);
+        setPC(PC + 1);
+        setComments("Increment content of resistor");
+      }
+      if (resultCode["ins"] === "DCR") {
+        setAout(decToBin(binToDec(A) - 1));
 
-    setPC(PC + 1);
-    setComments("Add content of two resistors");
-  };
+        setPC(PC + 1);
+        setComments("Decrement content of resistor");
+      }
+      if (resultCode["ins"] === "CMP") {
+        let carry = 0,
+          zero = 0;
+        if (binToDec(A) > binToDec(B)) {
+          carry = 1;
+        }
+        if (binToDec(A) == binToDec(B)) {
+          zero = 1;
+        }
+        if (binToDec(A) < binToDec(B)) {
+          carry = 1;
+          zero = 1;
+        }
 
-  const and = (a, b) => {
-    setAout(decToBin(binToDec(A) & binToDec(B)));
-    setBout(B);
+        setPC(PC + 1);
+        setComments(
+          `Compare content of two resistors \n` + carry
+            ? `Carry flag: ${carry} \n`
+            : " " + zero
+            ? `Zero flag: ${zero} \n`
+            : " "
+        );
+      }
+      if (resultCode["ins"] === "CLR") {
+        setAout(binToDec(0));
 
-    setPC(PC + 1);
-  };
+        setPC(PC + 1);
+        setComments("Clear content of resistor");
+      }
+      if (resultCode["ins"] === "CMA") {
+        setAout(decToBin(~binToDec(A)));
 
-  const inr = (a) => {
-    setAout(decToBin(binToDec(A) + 1));
+        setPC(PC + 1);
+        setComments("Complement content of resistor");
+      }
+      if (resultCode["ins"] === "SWP") {
+        setAout(B);
+        setBout(A);
+        setPC(PC + 1);
+        setComments("Swap content of two resistors");
+      }
+      if (resultCode["ins"] === "FLP") {
+        setAout(decToBin(reverseBits(binToDec(A))));
+        setPC(PC + 1);
+        setComments("Flip content of resistor");
+      }
+      if (resultCode["ins"] === "SQR") {
+        //square the binary string a
+        setAout(decToBin(binToDec(A) * binToDec(A)));
+        setPC(PC + 1);
+        setComments("Square content of resistor");
+      }
+      if (resultCode["ins"] === "SQT") {
+        //square root the binary string a
+        setAout(decToBin(Math.sqrt(binToDec(A))));
+        setPC(PC + 1);
+        setComments("Square root content of resistor");
+      }
+      if (resultCode["ins"] === "LCM") {
+        //find least common multiple of binary strings a and b
+        setAout(decToBin(lcmoftwo(binToDec(A), binToDec(B))));
 
-    setPC(PC + 1);
-    setComments("Increment content of resistor");
-  };
-
-  const dcr = (a) => {
-    setAout(decToBin(binToDec(A) - 1));
-
-    setPC(PC + 1);
-    setComments("Decrement content of resistor");
-  };
-
-  //check
-  const cmp = (a, b) => {
-    // if (A == a) {
-    //   setAout(binToDec(A) - binToDec(B));
-    // }
-    // if (B == a) {
-    //   setBout(binToDec(A) - binToDec(B));
-    // }
-    setPC(PC + 1);
-    setComments("Compare content of two resistors");
-  };
-
-  const clr = (a) => {
-    setAout(binToDec(0));
-
-    setPC(PC + 1);
-    setComments("Clear content of resistor");
-  };
-
-  const cma = (a) => {
-    setAout(decToBin(~binToDec(A)));
-
-    setPC(PC + 1);
-    setComments("Complement content of resistor");
-  };
-
-  const swp = (a, b) => {
-    setAout(B);
-    setBout(A);
-    setPC(PC + 1);
-    setComments("Swap content of two resistors");
-  };
-
-  const flp = (a) => {
-    setAout(decToBin(reverseBits(binToDec(A))));
-    setPC(PC + 1);
-    setComments("Flip content of resistor");
-  };
-
-  const sqr = (a) => {
-    //square the binary string a
-    setAout(decToBin(binToDec(A) * binToDec(A)));
-    setPC(PC + 1);
-    setComments("Square content of resistor");
-  };
-
-  const sqt = (a) => {
-    //square root the binary string a
-    setAout(decToBin(Math.sqrt(binToDec(A))));
-    setPC(PC + 1);
-    setComments("Square root content of resistor");
-  };
-
-  const lcm = (a, b) => {
-    //find least common multiple of binary strings a and b
-    setAout(decToBin(lcmoftwo(binToDec(A), binToDec(B))));
-
-    setPC(PC + 1);
-    setComments("Find least common multiple of two resistors");
-  };
+        setPC(PC + 1);
+        setComments("Find least common multiple of two resistors");
+      }
+    }
+  }, [t, execute]);
 
   return (
     <div
@@ -318,9 +472,10 @@ const Image = () => {
             backgroundColor: "teal",
           }}
           onClick={() => {
-            const result = code.split("\n");
+            let result = code.split("\n");
             setResultCode({});
-            const resultItem = result.split(" ");
+            console.log(result);
+            let resultItem = result[0].split(" ");
             const ins = resultItem[0];
             const x = resultItem[1];
             if (resultItem.length > 2) {
@@ -336,11 +491,13 @@ const Image = () => {
                 x,
               });
             }
+            setExecute(true);
           }}
         >
           Execute
         </Button>
         <Button
+          disabled={execute}
           variant="contained"
           color="primary"
           aria-controls="simple-menu"
@@ -370,6 +527,9 @@ const Image = () => {
           }}
           onClick={() => {
             setPC(0);
+            setT(-1);
+            setExecute(false);
+            setCode("");
             setAout("");
             setBout("");
             setA("");
@@ -390,6 +550,7 @@ const Image = () => {
         rows={8}
         style={{ width: "50%", marginTop: "20px" }}
         InputLabelProps={{ style: { fontSize: 20 } }}
+        value={output}
       />
     </div>
   );
