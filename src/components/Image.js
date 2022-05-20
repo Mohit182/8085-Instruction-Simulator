@@ -5,6 +5,32 @@ const binToDec = (bin) => {
   return parseInt(bin, 2);
 };
 
+const decToBin = (dec) => {
+  return parseInt(dec, 10).toString(2);
+};
+
+const reverseBits = (n) => {
+  let rev = 0;
+
+  while (n > 0) {
+    rev <<= 1;
+    if ((n & 1) == 1) rev ^= 1;
+
+    n >>= 1;
+  }
+
+  return rev;
+};
+const gcd = (a, b) => {
+  if (b == 0) return a;
+  return gcd(b, a % b);
+};
+
+// Function to return LCM of two numbers
+const lcmoftwo = (a, b) => {
+  return (a / gcd(a, b)) * b;
+};
+
 const Image = () => {
   const [code, setCode] = React.useState("");
   const [resultCode, setResultCode] = React.useState([]);
@@ -23,6 +49,114 @@ const Image = () => {
     }
   }, [resultCode]);
 
+  const mov = (a, b) => {
+    setAout(b);
+    setBout(B);
+
+    setPC(PC + 1);
+    setComments(
+      "Move Content of one resistor with respect to another resistor"
+    );
+  };
+
+  const mvi = (a, b) => {
+    setAout(b);
+    setBout(B);
+
+    setPC(PC + 2);
+    setComments("Move immediate to given resistor");
+  };
+
+  const add = (a, b) => {
+    setAout(decToBin(binToDec(A) + binToDec(B)));
+    setBout(B);
+
+    setPC(PC + 1);
+    setComments("Add content of two resistors");
+  };
+
+  const and = (a, b) => {
+    setAout(decToBin(binToDec(A) & binToDec(B)));
+    setBout(B);
+
+    setPC(PC + 1);
+  };
+
+  const inr = (a) => {
+    setAout(decToBin(binToDec(A) + 1));
+
+    setPC(PC + 1);
+    setComments("Increment content of resistor");
+  };
+
+  const dcr = (a) => {
+    setAout(decToBin(binToDec(A) - 1));
+
+    setPC(PC + 1);
+    setComments("Decrement content of resistor");
+  };
+
+  //check
+  const cmp = (a, b) => {
+    // if (A == a) {
+    //   setAout(binToDec(A) - binToDec(B));
+    // }
+    // if (B == a) {
+    //   setBout(binToDec(A) - binToDec(B));
+    // }
+    setPC(PC + 1);
+    setComments("Compare content of two resistors");
+  };
+
+  const clr = (a) => {
+    setAout(binToDec(0));
+
+    setPC(PC + 1);
+    setComments("Clear content of resistor");
+  };
+
+  const cma = (a) => {
+    setAout(decToBin(~binToDec(A)));
+
+    setPC(PC + 1);
+    setComments("Complement content of resistor");
+  };
+
+  const swp = (a, b) => {
+    setAout(B);
+    setBout(A);
+    setPC(PC + 1);
+    setComments("Swap content of two resistors");
+  };
+
+  const flp = (a) => {
+    setAout(decToBin(reverseBits(binToDec(A))));
+    setPC(PC + 1);
+    setComments("Flip content of resistor");
+  };
+
+  const sqr = (a) => {
+    //square the binary string a
+    setAout(decToBin(binToDec(A) * binToDec(A)));
+    setPC(PC + 1);
+    setComments("Square content of resistor");
+  };
+
+  const sqt = (a) => {
+    //square root the binary string a
+    setAout(decToBin(Math.sqrt(binToDec(A))));
+    setPC(PC + 1);
+    setComments("Square root content of resistor");
+  };
+
+  const lcm = (a, b) => {
+    //find least common multiple of binary strings a and b
+    setAout(decToBin(lcmoftwo(binToDec(A), binToDec(B))));
+
+    setPC(PC + 1);
+    setComments("Find least common multiple of two resistors");
+  };
+
   return (
     <div
       style={{
@@ -32,7 +166,7 @@ const Image = () => {
         justifyContent: "center",
         height: "100%",
         width: "100%",
-        marginTop: "15px",
+        marginTop: "25px",
       }}
     >
       <div
@@ -75,13 +209,13 @@ const Image = () => {
             >
               <h3>Input</h3>
               <TextField
-                style={{ padding: "1px", width: "40%" }}
+                style={{ padding: "5px", width: "50%" }}
                 id="outlined"
                 label="A"
                 variant="outlined"
               />
               <TextField
-                style={{ padding: "1px", width: "40%" }}
+                style={{ padding: "5px", width: "50%" }}
                 id="outlined"
                 label="B"
                 variant="outlined"
@@ -99,14 +233,14 @@ const Image = () => {
               <h3>Output</h3>
               <TextField
                 disabled
-                style={{ padding: "5px", width: "40%" }}
+                style={{ padding: "5px", width: "50%" }}
                 id="outlined"
                 label="A"
                 variant="outlined"
               />
               <TextField
                 disabled
-                style={{ padding: "5px", width: "40%" }}
+                style={{ padding: "5px", width: "50%" }}
                 id="outlined"
                 label="B"
                 variant="outlined"
@@ -139,6 +273,7 @@ const Image = () => {
       <div
         style={{
           display: "flex",
+          marginTop: "20px",
         }}
       >
         <Button
@@ -155,34 +290,25 @@ const Image = () => {
           onClick={() => {
             const result = code.split("\n");
             setResultCode([]);
-            result.map((item, index) => {
-              const resultItem = item.split(" ");
-              const ins = resultItem[0];
-              const x = resultItem[1];
-              if (resultItem.length > 2) {
-                const y = resultItem[2];
-                setResultCode((prev) => [
-                  ...prev,
-                  {
-                    ins,
-                    x,
-                    y,
-                  },
-                ]);
-              } else {
-                setResultCode((prev) => [
-                  ...prev,
-                  {
-                    ins,
-                    x,
-                  },
-                ]);
-              }
-              return null;
-            });
+            const resultItem = result.split(" ");
+            const ins = resultItem[0];
+            const x = resultItem[1];
+            if (resultItem.length > 2) {
+              const y = resultItem[2];
+              setResultCode({
+                ins,
+                x,
+                y,
+              });
+            } else {
+              setResultCode({
+                ins,
+                x,
+              });
+            }
           }}
         >
-          Load
+          Execute
         </Button>
         <Button
           variant="contained"
@@ -209,11 +335,19 @@ const Image = () => {
             marginTop: "20px",
             backgroundColor: "teal",
           }}
+          onClick={() => {
+            setPC(0);
+            setAout("");
+            setBout("");
+            setA("");
+            setB("");
+            setOutput("");
+            setComments("");
+          }}
         >
           Reset
         </Button>
       </div>
-
       <TextField
         id="outlined-multiline"
         label="Output Clock Cycles"
@@ -221,7 +355,7 @@ const Image = () => {
         variant="outlined"
         multiline
         rows={8}
-        style={{ width: "50%" }}
+        style={{ width: "50%", marginTop: "20px" }}
         InputLabelProps={{ style: { fontSize: 20 } }}
       />
     </div>
