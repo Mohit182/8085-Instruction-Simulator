@@ -7,6 +7,9 @@ const Image = () => {
 
   React.useEffect(() => {
     console.log(resultCode);
+    if (resultCode.length > 0) {
+      console.log("resultCode.ins", resultCode[0].ins);
+    }
   }, [resultCode]);
 
   return (
@@ -34,18 +37,11 @@ const Image = () => {
           multiline
           rows={12}
           value={code}
-          InputLabelProps={{style: {fontSize: 20}}}
+          InputLabelProps={{
+            style: { fontSize: 20, borderColor: "teal !important" },
+          }}
           onChange={(e) => {
             setCode(e.target.value);
-            const result = e.target.value.split("\n");
-            result.map((item, index) => {
-              const resultItem = item.split(" ");
-              resultCode.ins = resultItem[0];
-
-              // resultCode.=resultItem[1];
-              return null;
-            });
-            setResultCode(e.target.value.split("\n"));
           }}
         />
         <Button
@@ -58,6 +54,22 @@ const Image = () => {
             marginLeft: "25%",
             marginTop: "20px",
             backgroundColor: "teal",
+          }}
+          onClick={() => {
+            const result = code.split("\n");
+            setResultCode([]);
+            result.map((item, index) => {
+              const resultItem = item.split(" ");
+              const ins = resultItem[0];
+              setResultCode((prev) => [
+                ...prev,
+                {
+                  ins,
+                  index,
+                },
+              ]);
+              return null;
+            });
           }}
         >
           Load
@@ -72,7 +84,7 @@ const Image = () => {
           variant="outlined"
           multiline
           rows={12}
-          InputLabelProps={{style: {fontSize: 20}}}
+          InputLabelProps={{ style: { fontSize: 20 } }}
         />
         <Button
           variant="contained"
