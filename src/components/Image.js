@@ -9,6 +9,7 @@ const decToBin = (dec) => {
   return parseInt(dec, 10).toString(2);
 };
 
+const instruction = [];
 const reverseBits = (n) => {
   let rev = 0;
 
@@ -41,13 +42,23 @@ const Image = () => {
   const [PC, setPC] = React.useState(0);
   const [comments, setComments] = React.useState("");
   const [output, setOutput] = React.useState("");
+  const [t, setT] = React.useState(-1);
 
   React.useEffect(() => {
     console.log(resultCode);
     if (resultCode.length > 0) {
       console.log("resultCode.ins", resultCode[0].ins);
     }
-  }, [resultCode]);
+
+    if (t > -1) {
+      for (var i = 0; i < instruction.length; i++) {
+        if (instruction[i]["name"] === resultCode["ins"].toUpperString()) {
+          setOutput(instruction[i].t);
+          break;
+        }
+      }
+    }
+  }, [resultCode, t]);
 
   const mov = (a, b) => {
     setAout(b);
@@ -320,6 +331,9 @@ const Image = () => {
             margin: "5px",
             marginTop: "20px",
             backgroundColor: "teal",
+          }}
+          onClick={() => {
+            setT(t + 1);
           }}
         >
           Next
