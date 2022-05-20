@@ -8,7 +8,6 @@ const binToDec = (bin) => {
 const decToBin = (dec) => {
   return parseInt(dec, 10).toString(2);
 };
-
 const instruction = [
   {
     name: "ADD",
@@ -198,9 +197,11 @@ const Image = () => {
 
   React.useEffect(() => {
     if (t > -1) {
+      const s = resultCode["ins"];
       for (var i = 0; i < instruction.length; i++) {
-        if (instruction[i]["name"] === resultCode["ins"].toUpperString()) {
-          setOutput(instruction[i].t);
+        const item = instruction[i];
+        if (item["name"] === s) {
+          setOutput(item.t);
           break;
         }
       }
@@ -497,7 +498,7 @@ const Image = () => {
           Execute
         </Button>
         <Button
-          disabled={execute}
+          disabled={!execute}
           variant="contained"
           color="primary"
           aria-controls="simple-menu"
@@ -510,6 +511,7 @@ const Image = () => {
           }}
           onClick={() => {
             setT(t + 1);
+            console.log(t);
           }}
         >
           Next
