@@ -11,153 +11,153 @@ const decToBin = (dec) => {
 const instruction = [
   {
     name: "ADD",
-    0: "PC(E), MAR(E,L)",
-    1: "PC(I), RAM(E), IR(L)",
-    2: "",
-    3: "",
-    4: "",
-    5: "",
-    6: "A(E,L), B(E), ALU(0001), RESET",
+    0: "T0: PC(E), MAR(E,L)",
+    1: "T1: PC(I), RAM(E), IR(L)",
+    2: "T2:",
+    3: "T3:",
+    4: "T4:",
+    5: "T5:",
+    6: "T6: A(E,L), B(E), ALU(0001), RESET",
   },
   {
     name: "AND",
-    0: "PC(E), MAR(E,L)",
-    1: "PC(I), RAM(E), IR(L)",
-    2: "",
-    3: "",
-    4: "",
-    5: "",
-    6: "A(E,L), B(E), ALU(0010), RESET",
+    0: "T0: PC(E), MAR(E,L)",
+    1: "T1: PC(I), RAM(E), IR(L)",
+    2: "T2:",
+    3: "T3:",
+    4: "T4:",
+    5: "T5:",
+    6: "T6: A(E,L), B(E), ALU(0010), RESET",
   },
   {
     name: "MOV",
-    0: "PC(E), MAR(E,L)",
-    1: "PC(I), RAM(E), IR(L)",
-    2: "",
-    3: "",
-    4: "",
-    5: "",
-    6: "A(L), B(E), RESET",
+    0: "T0: PC(E), MAR(E,L)",
+    1: "T1: PC(I), RAM(E), IR(L)",
+    2: "T2:",
+    3: "T3:",
+    4: "T4:",
+    5: "T5:",
+    6: "T6: A(L), B(E), RESET",
   },
   {
     name: "MVI",
-    0: "PC(E), MAR(E,L)",
-    1: "PC(I), RAM(E), IR(L)",
-    2: "PC(E), MAR(E,L)",
-    3: "PC(I)",
-    4: "",
-    5: "",
-    6: "A(L), RAM(E), RESET",
+    0: "T0: PC(E), MAR(E,L)",
+    1: "T1: PC(I), RAM(E), IR(L)",
+    2: "T2: PC(E), MAR(E,L)",
+    3: "T3: PC(I)",
+    4: "T4:",
+    5: "T5:",
+    6: "T6: A(L), RAM(E), RESET",
   },
   {
     name: "INR",
-    0: "PC(E), MAR(E,L)",
-    1: "PC(I), RAM(E), IR(L)",
-    2: "",
-    3: "",
-    4: "",
-    5: "",
-    6: "A(E,L), B(E), ALU(0011), RESET",
+    0: "T0: PC(E), MAR(E,L)",
+    1: "T1: PC(I), RAM(E), IR(L)",
+    2: "T2:",
+    3: "T3:",
+    4: "T4:",
+    5: "T5: A(E,L), B(E), ALU(0100), RESET",
+    6: "T6: A(E,L), B(E), ALU(0011), RESET",
   },
   {
     name: "DCR",
-    0: "PC(E), MAR(E,L)",
-    1: "PC(I), RAM(E), IR(L)",
-    2: "",
-    3: "",
-    4: "",
-    5: "",
-    6: "A(E,L), B(E), ALU(0100), RESET",
+    0: "T0: PC(E), MAR(E,L)",
+    1: "T1: PC(I), RAM(E), IR(L)",
+    2: "T2:",
+    3: "T3:",
+    4: "T4:",
+    5: "T5:",
+    6: "T6: A(E,L), B(E), ALU(0100), RESET",
   },
   {
     name: "CMP",
-    0: "PC(E), MAR(E,L)",
-    1: "PC(I), RAM(E), IR(L)",
-    2: "",
-    3: "",
-    4: "",
-    5: "",
-    6: "A(E,L), B(E), ALU(0101), RESET",
+    0: "T0: PC(E), MAR(E,L)",
+    1: "T1: PC(I), RAM(E), IR(L)",
+    2: "T2:",
+    3: "T3:",
+    4: "T4:",
+    5: "T5:",
+    6: "T6: A(E,L), B(E), ALU(0101), RESET",
   },
   {
     name: "CLR",
-    0: "PC(E), MAR(E,L)",
-    1: "PC(I), RAM(E), IR(L)",
-    2: "",
-    3: "",
-    4: "",
-    5: "",
-    6: "A(E,L), B(E), ALU(0110), RESET",
+    0: "T0: PC(E), MAR(E,L)",
+    1: "T1: PC(I), RAM(E), IR(L)",
+    2: "T2:",
+    3: "T3:",
+    4: "T4:",
+    5: "T5:",
+    6: "T6: A(E,L), B(E), ALU(0110), RESET",
   },
   {
     name: "CMA",
-    0: "PC(E), MAR(E,L)",
-    1: "PC(I), RAM(E), IR(L)",
-    2: "",
-    3: "",
-    4: "",
-    5: "",
-    6: "A(E,L), B(E), ALU(0111), RESET",
+    0: "T0: PC(E), MAR(E,L)",
+    1: "T1: PC(I), RAM(E), IR(L)",
+    2: "T2:",
+    3: "T3:",
+    4: "T4:",
+    5: "T5:",
+    6: "T6: A(E,L), B(E), ALU(0111), RESET",
   },
   {
     name: "SWP",
-    0: "PC(E), MAR(E,L)",
-    1: "PC(I), RAM(E), IR(L)",
-    2: "",
-    3: "",
-    4: "B(E), TMP(L)",
-    5: "A(E), B(L)",
-    6: "A(L), TMP(E), RESET",
+    0: "T0: PC(E), MAR(E,L)",
+    1: "T1: PC(I), RAM(E), IR(L)",
+    2: "T2:",
+    3: "T3:",
+    4: "T4: B(E), TMP(L)",
+    5: "T5: A(E), B(L)",
+    6: "T6: A(L), TMP(E), RESET",
   },
   {
     name: "FLP",
-    0: "PC(E), MAR(E,L)",
-    1: "PC(I), RAM(E), IR(L)",
-    2: "",
-    3: "",
-    4: "",
-    5: "",
-    6: "A(E,L), B(E), ALU(1000), RESET",
+    0: "T0: PC(E), MAR(E,L)",
+    1: "T1: PC(I), RAM(E), IR(L)",
+    2: "T2:",
+    3: "T3:",
+    4: "T4:",
+    5: "T5:",
+    6: "T6: A(E,L), B(E), ALU(1000), RESET",
   },
   {
     name: "SQR",
-    0: "PC(E), MAR(E,L)",
-    1: "PC(I), RAM(E), IR(L)",
-    2: "",
-    3: "",
-    4: "",
-    5: "",
-    6: "A(E,L), B(E), ALU(1001), RESET",
+    0: "T0: PC(E), MAR(E,L)",
+    1: "T1: PC(I), RAM(E), IR(L)",
+    2: "T2:",
+    3: "T3:",
+    4: "T4:",
+    5: "T5:",
+    6: "T6: A(E,L), B(E), ALU(1001), RESET",
   },
   {
     name: "SQT",
-    0: "PC(E), MAR(E,L)",
-    1: "PC(I), RAM(E), IR(L)",
-    2: "",
-    3: "",
-    4: "",
-    5: "",
-    6: "A(E,L), B(E), ALU(1010), RESET",
+    0: "T0: PC(E), MAR(E,L)",
+    1: "T1: PC(I), RAM(E), IR(L)",
+    2: "T2:",
+    3: "T3:",
+    4: "T4:",
+    5: "T5:",
+    6: "T6: A(E,L), B(E), ALU(1010), RESET",
   },
   {
     name: "LCM",
-    0: "PC(E), MAR(E,L)",
-    1: "PC(I), RAM(E), IR(L)",
-    2: "",
-    3: "",
-    4: "",
-    5: "",
-    6: "A(E,L), B(E), ALU(1011), RESET",
+    0: "T0: PC(E), MAR(E,L)",
+    1: "T1: PC(I), RAM(E), IR(L)",
+    2: "T2:",
+    3: "T3:",
+    4: "T4:",
+    5: "T5:",
+    6: "T6: A(E,L), B(E), ALU(1011), RESET",
   },
   {
     name: "TCA",
-    0: "PC(E), MAR(E,L)",
-    1: "PC(I), RAM(E), IR(L)",
-    2: "",
-    3: "",
-    4: "",
-    5: "",
-    6: "A(E,L), B(E), ALU(1100), RESET",
+    0: "T0: PC(E), MAR(E,L)",
+    1: "T1: PC(I), RAM(E), IR(L)",
+    2: "T2:",
+    3: "T3:",
+    4: "T4:",
+    5: "T5:",
+    6: "T6: A(E,L), B(E), ALU(1100), RESET",
   },
 ];
 const reverseBits = (n) => {
@@ -198,57 +198,55 @@ const Image = () => {
   React.useEffect(() => {
     if (t > -1) {
       const s = resultCode["ins"];
+
       for (var i = 0; i < instruction.length; i++) {
         const item = instruction[i];
         if (item["name"] === s) {
-          setOutput(item.t);
+          setOutput(item[`${t}`]);
           break;
         }
       }
     }
-
-    if (execute) {
+  }, [t]);
+  React.useEffect(() => {
+    if (resultCode["ins"] !== undefined) {
       if (resultCode["ins"] === "MOV") {
         setAout(B);
         setBout(B);
 
         setPC(PC + 1);
-        setComments(
-          "Move Content of one resistor with respect to another resistor"
-        );
+        setComments("Move Content of register B to register A");
       }
       if (resultCode["ins"] === "MVI") {
         setAout(resultCode["y"]);
         // setBout(B);
         setPC(PC + 2);
-        setComments(
-          "Move Content of one resistor with respect to another resistor"
-        );
+        setComments("Move data input to register A");
       }
       if (resultCode["ins"] === "ADD") {
         setAout(decToBin(binToDec(A) + binToDec(B)));
         setBout(B);
 
         setPC(PC + 1);
-        setComments("Add content of two resistors");
+        setComments("Add content of two registers");
       }
       if (resultCode["ins"] === "AND") {
         setAout(decToBin(binToDec(A) & binToDec(B)));
         setBout(B);
-
+        setComments("Find bitwise and operation between A and B");
         setPC(PC + 1);
       }
       if (resultCode["ins"] === "INR") {
         setAout(decToBin(binToDec(A) + 1));
-
+        setComments("Increment value of register A");
         setPC(PC + 1);
-        setComments("Increment content of resistor");
+        // setComments("Increment content of resistor");
       }
       if (resultCode["ins"] === "DCR") {
         setAout(decToBin(binToDec(A) - 1));
-
+        setComments("Decrement value of register A");
         setPC(PC + 1);
-        setComments("Decrement content of resistor");
+        // setComments("Decrement content of resistor");
       }
       if (resultCode["ins"] === "CMP") {
         let carry = 0,
@@ -256,7 +254,7 @@ const Image = () => {
         if (binToDec(A) > binToDec(B)) {
           carry = 1;
         }
-        if (binToDec(A) == binToDec(B)) {
+        if (binToDec(A) === binToDec(B)) {
           zero = 1;
         }
         if (binToDec(A) < binToDec(B)) {
@@ -266,8 +264,8 @@ const Image = () => {
 
         setPC(PC + 1);
         setComments(
-          `Compare content of two resistors \n` + carry
-            ? `Carry flag: ${carry} \n`
+          `Compare content of registers A and B \n` + carry
+            ? `Carry flag: ${carry} and A > B\n`
             : " " + zero
             ? `Zero flag: ${zero} \n`
             : " "
@@ -277,46 +275,46 @@ const Image = () => {
         setAout(binToDec(0));
 
         setPC(PC + 1);
-        setComments("Clear content of resistor");
+        setComments("Clear content of register A");
       }
       if (resultCode["ins"] === "CMA") {
         setAout(decToBin(~binToDec(A)));
 
         setPC(PC + 1);
-        setComments("Complement content of resistor");
+        setComments("Complement content of register A");
       }
       if (resultCode["ins"] === "SWP") {
         setAout(B);
         setBout(A);
         setPC(PC + 1);
-        setComments("Swap content of two resistors");
+        setComments("Swap content of register A and B");
       }
       if (resultCode["ins"] === "FLP") {
         setAout(decToBin(reverseBits(binToDec(A))));
         setPC(PC + 1);
-        setComments("Flip content of resistor");
+        setComments("Flip content of register A");
       }
       if (resultCode["ins"] === "SQR") {
         //square the binary string a
         setAout(decToBin(binToDec(A) * binToDec(A)));
         setPC(PC + 1);
-        setComments("Square content of resistor");
+        setComments("Find Square of content of register A");
       }
       if (resultCode["ins"] === "SQT") {
         //square root the binary string a
         setAout(decToBin(Math.sqrt(binToDec(A))));
         setPC(PC + 1);
-        setComments("Square root content of resistor");
+        setComments("Find Square root of content of resistor");
       }
       if (resultCode["ins"] === "LCM") {
         //find least common multiple of binary strings a and b
         setAout(decToBin(lcmoftwo(binToDec(A), binToDec(B))));
 
         setPC(PC + 1);
-        setComments("Find least common multiple of two resistors");
+        setComments("Find least common multiple of registers A and B");
       }
     }
-  }, [t, execute]);
+  }, [execute]);
 
   return (
     <div
@@ -337,7 +335,7 @@ const Image = () => {
       >
         <TextField
           id="outlined-multiline"
-          label="Code Area"
+          label="Input Instruction"
           variant="outlined"
           multiline
           rows={10}
@@ -407,7 +405,6 @@ const Image = () => {
             >
               <h3>Output</h3>
               <TextField
-                disabled
                 style={{ padding: "5px", width: "50%" }}
                 id="outlined"
                 label="A"
@@ -418,7 +415,6 @@ const Image = () => {
                 }}
               />
               <TextField
-                disabled
                 style={{ padding: "5px", width: "50%" }}
                 id="outlined"
                 label="B"
@@ -431,7 +427,6 @@ const Image = () => {
             </div>
           </div>
           <TextField
-            disabled
             style={{ padding: "5px", width: "40%" }}
             id="outlined"
             label="PC"
@@ -444,7 +439,6 @@ const Image = () => {
         </div>
         <TextField
           id="outlined-multiline"
-          disabled
           label="Comments"
           variant="outlined"
           multiline
@@ -475,7 +469,6 @@ const Image = () => {
           onClick={() => {
             let result = code.split("\n");
             setResultCode({});
-            console.log(result);
             let resultItem = result[0].split(" ");
             const ins = resultItem[0];
             const x = resultItem[1];
@@ -492,7 +485,7 @@ const Image = () => {
                 x,
               });
             }
-            setExecute(true);
+            setExecute(!execute);
           }}
         >
           Execute
@@ -528,7 +521,6 @@ const Image = () => {
             backgroundColor: "teal",
           }}
           onClick={() => {
-            setPC(0);
             setT(-1);
             setExecute(false);
             setCode("");
@@ -546,10 +538,9 @@ const Image = () => {
       <TextField
         id="outlined-multiline"
         label="Output Clock Cycles"
-        disabled
         variant="outlined"
         multiline
-        rows={8}
+        rows={4}
         style={{ width: "50%", marginTop: "20px" }}
         InputLabelProps={{ style: { fontSize: 20 } }}
         value={output}
