@@ -10,7 +10,7 @@ const decToBin = (dec) => {
 };
 const instruction = [
   {
-    name: "ADD",
+    name: "ADDE",
     0: "T0: PC(E), MAR(E,L)",
     1: "T1: PC(I), RAM(E), IR(L)",
     2: "T2:",
